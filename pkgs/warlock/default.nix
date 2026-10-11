@@ -1,6 +1,7 @@
 {
   lib,
   rustPlatform,
+  rustc,
   fetchFromGitHub,
   gitMinimal,
   versionCheckHook,
@@ -57,5 +58,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       }
     ];
     mainProgram = "warlock";
+    # Cargo.toml sets rust-version = "1.97.1"; older channels can't build it.
+    broken = lib.versionOlder rustc.version "1.97.1";
   };
 })
